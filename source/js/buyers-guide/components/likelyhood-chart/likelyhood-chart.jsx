@@ -1,6 +1,7 @@
 // TODO: Inject likely % in .bar and .likelyhood-words
 
 import React from "react";
+import { Localized } from "@fluent/react";
 
 export default class LikelyhoodChart extends React.Component {
   constructor(props) {
@@ -22,23 +23,31 @@ export default class LikelyhoodChart extends React.Component {
           <tbody>
             <tr className="likely">
               <th>
-                <span className="likely-label">likely</span>
+                <span className="likely-label">
+                  <Localized id="likely">{`Likely`}</Localized>
+                </span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${100 - perc}%` }} />
                 <span className="likelyhood-words">
-                  {100 - perc}% likely to {this.props.buyOrUse} it
+                  <Localized id="percent-likely-to-buy" $percent={100 - perc}>
+                    {`{$percent}% likely to buy it`}
+                  </Localized>
                 </span>
               </td>
             </tr>
             <tr className="unlikely">
               <th>
-                <span className="likely-label">not likely</span>
+                <span className="likely-label">
+                  <Localized id="not-likely">{`Not likely`}</Localized>
+                </span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${perc}%` }} />
                 <span className="likelyhood-words">
-                  {perc}% not likely to {this.props.buyOrUse} it
+                  <Localized id="percent-not-likely-to-buy" $percent={perc}>
+                    {`{$percent}% not likely to buy it`}
+                  </Localized>
                 </span>
               </td>
             </tr>

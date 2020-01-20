@@ -3,9 +3,9 @@ import { ReactGA } from "../../common";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
-import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
+import { Localized } from "@fluent/react";
 import utility from "../../utility";
 
 export default class JoinUs extends React.Component {
@@ -96,7 +96,9 @@ export default class JoinUs extends React.Component {
     if (!input) {
       return {
         valid: false,
-        errorMessage: `This is a required section.`
+        errorMessage: (
+          <Localized id="form-field-required">{`This is a required section.`}</Localized>
+        )
       };
     }
 
@@ -105,7 +107,9 @@ export default class JoinUs extends React.Component {
     if (!valid) {
       return {
         valid: false,
-        errorMessage: `Please enter a valid email address.`
+        errorMessage: (
+          <Localized id="form-email-invalid">{`Please enter a valid email address.`}</Localized>
+        )
       };
     }
 
@@ -262,23 +266,59 @@ export default class JoinUs extends React.Component {
    * Render the CTA heading.
    */
   renderSnippetHeading() {
-    return (
-      <React.Fragment>
-        <h5 className="h5-heading">
-          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
-        </h5>
-        {!this.state.apiSuccess ? (
+    let header = (
+      <Localized id="cta-header">{`Protect the internet as a global public resource`}</Localized>
+    );
+    let description = (
+      <Localized id="cta-description" strong={<strong></strong>}>
+        <p>{`Join our <strong>Mozilla News</strong> email list to take action and stay updated!`}</p>
+      </Localized>
+    );
+    let doubleOptIn = (
+      <div>
+        <Localized id="cta-double-opt-in" strong={<strong></strong>}>
+          <p>
+            {`If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`}
+          </p>
+        </Localized>
+        <Localized
+          id="cta-manage-subscriptions"
+          preferencesLink={
+            <a
+              href="https://www.mozilla.org/newsletter/recovery/"
+              target="_blank"
+            ></a>
+          }
+        >
+          <p>
+            {`If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <preferencesLink>manage your subscriptions</preferencesLink> and update your email preferences.`}
+          </p>
+        </Localized>
+      </div>
+    );
+
+    if (!this.state.apiSuccess) {
+      if (this.props.ctaHeader) {
+        header = this.props.ctaHeader;
+      }
+      if (this.props.ctaDescription) {
+        description = (
           <div
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription
             }}
           />
-        ) : (
-          <React.Fragment>
-            <p>{getText(`confirm your email opt-in`)}</p>
-            <p>{getText(`manage your subscriptions`)}</p>
-          </React.Fragment>
-        )}
+        );
+      }
+    } else {
+      header = <Localized id="thanks">{`Thanks!`}</Localized>;
+      description = doubleOptIn;
+    }
+
+    return (
+      <React.Fragment>
+        <h5 className="h5-heading">{header}</h5>
+        {description}
       </React.Fragment>
     );
   }
@@ -326,19 +366,24 @@ export default class JoinUs extends React.Component {
         <div className={classes}>
           {this.isFlowForm() && (
             <label className="font-weight-bold" htmlFor={this.id.userEmail}>
-              Email
+              <Localized id="email-label">{`Email`}</Localized>
             </label>
           )}
-          <input
-            name="userEmail"
-            type="email"
-            className="form-control"
-            placeholder={getText(`Please enter your email`)}
-            ref={el => (this.email = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-            aria-label={!this.isFlowForm() ? "Email" : ""}
-            id={this.id.userEmail}
-          />
+          <Localized
+            id="email-input"
+            attrs={{ placeholder: true, "aria-label": !this.isFlowForm() }}
+          >
+            <input
+              name="userEmail"
+              type="email"
+              className="form-control"
+              placeholder="Please enter your email"
+              ref={el => (this.email = el)}
+              onFocus={evt => this.onInputFocus(evt)}
+              aria-label={!this.isFlowForm() ? "Email" : ""}
+              id={this.id.userEmail}
+            />
+          </Localized>
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
@@ -352,7 +397,7 @@ export default class JoinUs extends React.Component {
         )}
         {this.state.signupFailed && (
           <small className="form-check form-control-feedback">
-            Something went wrong. Please check your email address and try again
+            <Localized id="form-error">{`Something went wrong. Please check your email address and try again`}</Localized>
           </small>
         )}
       </div>
@@ -371,14 +416,16 @@ export default class JoinUs extends React.Component {
     return (
       <div hidden={this.state.hideLocaleFields}>
         <div className="mb-2">
-          <CountrySelect
-            ref={element => {
-              this.country = element;
-            }}
-            label={getText(`Your country`)}
-            className="w-100"
-            formPosition={this.props.formPosition}
-          />
+          <Localized id="country" attrs={{ label: true }}>
+            <CountrySelect
+              ref={element => {
+                this.country = element;
+              }}
+              label="Your country"
+              className="w-100"
+              formPosition={this.props.formPosition}
+            />
+          </Localized>
         </div>
         <div>
           <LanguageSelect
@@ -399,22 +446,26 @@ export default class JoinUs extends React.Component {
     return (
       <div>
         <div className="mb-2">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="First name"
-            ref={el => (this.givenNames = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-          />
+          <Localized id="first-name" attrs={{ placeholder: true }}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="First name"
+              ref={el => (this.givenNames = el)}
+              onFocus={evt => this.onInputFocus(evt)}
+            />
+          </Localized>
         </div>
         <div className="mb-2">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Last name"
-            ref={el => (this.surname = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-          />
+          <Localized id="last-name" attrs={{ placeholder: true }}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Last name"
+              ref={el => (this.surname = el)}
+              onFocus={evt => this.onInputFocus(evt)}
+            />
+          </Localized>
         </div>
       </div>
     );
@@ -443,11 +494,16 @@ export default class JoinUs extends React.Component {
                 ref={el => (this.privacy = el)}
                 required
               />
-              <p className="d-inline-block body-small form-text mb-0">
-                {getText(
-                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                )}
-              </p>
+              <Localized
+                id="privacy-policy"
+                privacyLink={
+                  <a href="https://www.mozilla.org/privacy/websites/"></a>
+                }
+              >
+                <p className="d-inline-block body-small form-text mb-0">
+                  {`I’m okay with Mozilla handling my info as explained in <privacyLink>this Privacy Notice</privacyLink>`}
+                </p>
+              </Localized>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
                 !this.privacy.checked &&
@@ -459,7 +515,7 @@ export default class JoinUs extends React.Component {
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
           <p className="body-small form-check form-control-feedback mt-0 mb-3">
-            Please check this box if you want to proceed.
+            <Localized id="form-checkbox">{`Please check this box if you want to proceed.`}</Localized>
           </p>
         )}
       </div>
@@ -474,7 +530,11 @@ export default class JoinUs extends React.Component {
       "w-100": !this.isFlowForm(),
       "flex-1 mr-3": this.isFlowForm()
     });
-    return <button className={classnames}>{getText(`Sign up`)}</button>;
+    return (
+      <Localized id="sign-up-button">
+        <button className={classnames}>{`Sign up`}</button>
+      </Localized>
+    );
   }
 
   /**
@@ -484,7 +544,7 @@ export default class JoinUs extends React.Component {
   renderFormContent() {
     if (this.state.apiSuccess) return null;
 
-    let formClass = `d-flex flex-column`;
+    let formClass = `d-flex flex-column join-form`;
     let fieldsWrapperClass = `w-100`;
     let buttonsWrapperClass = `w-100`;
 
@@ -514,13 +574,15 @@ export default class JoinUs extends React.Component {
         <div className={buttonsWrapperClass}>
           {this.renderSubmitButton()}
           {this.isFlowForm() && (
-            <button
-              className="btn btn-primary btn-dismiss flex-1"
-              onClick={() => this.props.handleSignUp(false)}
-              type="button"
-            >
-              No Thanks
-            </button>
+            <Localized id="no-thanks-button">
+              <button
+                className="btn btn-primary btn-dismiss flex-1"
+                onClick={() => this.props.handleSignUp(false)}
+                type="button"
+              >
+                {`No Thanks`}
+              </button>
+            </Localized>
           )}
         </div>
       </form>
@@ -529,8 +591,6 @@ export default class JoinUs extends React.Component {
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
   newsletter: `mozilla-foundation`,
   askName: false
 };

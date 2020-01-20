@@ -1,4 +1,5 @@
 import React from "react";
+import { Localized } from "@fluent/react";
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
 export default class CreepChart extends React.Component {
@@ -68,15 +69,23 @@ export default class CreepChart extends React.Component {
                     <span className="creep-label">{data.label}</span>
                     <span className="creep-face" />
                   </th>
-                  <td className="creepiness">{percent}%</td>
+                  <td className="creepiness">
+                    <Localized id="percent" $percent={percent}>
+                      {`{$percent}%`}
+                    </Localized>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
         <div className="row">
-          <div className="col text-left text-muted">Not creepy</div>
-          <div className="col text-right text-muted">Super creepy</div>
+          <div className="col text-left text-muted">
+            <Localized id="not-creepy">{`Not creepy`}</Localized>
+          </div>
+          <div className="col text-right text-muted">
+            <Localized id="super-creepy">{`Super creepy`}</Localized>
+          </div>
         </div>
       </div>
     );

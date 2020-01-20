@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import copyToClipboard from "../../copy-to-clipboard";
+import { Localized } from "@fluent/react";
 
 export default class ShareButtonGroup extends React.Component {
   constructor(props) {
@@ -20,7 +21,9 @@ export default class ShareButtonGroup extends React.Component {
   renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
-        <span className="sr-only">Share on Facebook</span>
+        <span className="sr-only">
+          <Localized id="share-facebook">{`Share on Facebook`}</Localized>
+        </span>
       ) : (
         `Facebook`
       );
@@ -46,7 +49,9 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span className="sr-only">Share on Twitter</span>
+        <span className="sr-only">
+          <Localized id="share-twitter">{`Share on Twitter`}</Localized>
+        </span>
       ) : (
         `Twitter`
       );
@@ -68,9 +73,11 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span className="sr-only">Share by email</span>
+        <span className="sr-only">
+          <Localized id="share-by-email">{`Share by email`}</Localized>
+        </span>
       ) : (
-        `Email`
+        <Localized id="email-button">{`Email`}</Localized>
       );
 
     return (
@@ -93,13 +100,19 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderLinkButton() {
-    let tooltip = this.state.linkCopied
-      ? `Copied`
-      : `Copy page URL to clipboard`;
-    let label = this.state.linkCopied ? `Copied` : `Copy`;
+    let label = this.state.linkCopied ? (
+      <Localized id="tooltip-copied">{`Copied`}</Localized>
+    ) : (
+      <Localized id="tooltip-copy">{`Copy`}</Localized>
+    );
+    let labelMini = this.state.linkCopied ? (
+      <Localized id="tooltip-page-copied">{`Page link copied`}</Localized>
+    ) : (
+      <Localized id="tooltip-page-copy">{`Copy page link`}</Localized>
+    );
     label =
       this.props.version === `mini` ? (
-        <span className="sr-only">{label} page link</span>
+        <span className="sr-only">{labelMini}</span>
       ) : (
         label
       );
@@ -107,16 +120,19 @@ export default class ShareButtonGroup extends React.Component {
     let classes = classNames(`btn btn-secondary btn-share link-share`, {
       copied: this.state.linkCopied
     });
-
-    return (
-      <button
-        className={classes}
-        onClick={event => this.handleLinkButtonClick(event)}
-        title={tooltip}
-      >
-        {label}
-      </button>
+    let link = (
+      <Localized id={this.state.linkCopied ? "link-copied" : "link-copy"}>
+        <button
+          className={classes}
+          onClick={event => this.handleLinkButtonClick(event)}
+          title={tooltip}
+        >
+          {label}
+        </button>
+      </Localized>
     );
+
+    return link;
   }
 
   renderRectangleButtons() {

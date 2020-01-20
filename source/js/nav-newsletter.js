@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
+import { LocalizationProvider } from "@fluent/react";
+import { getBundles } from "./l10n";
 
 const elements = {
   primaryNav: `#primary-nav-container`,
@@ -10,7 +12,8 @@ const elements = {
   buttonDesktop: `#primary-nav-container .wide-screen-menu-container .btn-newsletter`,
   container: `#nav-newsletter-form-wrapper`,
   joinUs: `#nav-newsletter-form-wrapper .join-us.on-nav`,
-  buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`
+  buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`,
+  joinForm: `.join-form`
 };
 
 class NavNewsletter {
@@ -25,7 +28,7 @@ class NavNewsletter {
 
   // Reset form
   resetForm() {
-    this.form.reset();
+    elements.joinForm.reset();
 
     let handleTransitionend = () => {
       elements.container.removeEventListener(
@@ -133,7 +136,12 @@ class NavNewsletter {
       0}/`;
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
-    this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
+    this.form = ReactDOM.render(
+      <LocalizationProvider bundles={getBundles()}>
+        <JoinUs {...props} />
+      </LocalizationProvider>,
+      elements.joinUs
+    );
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section

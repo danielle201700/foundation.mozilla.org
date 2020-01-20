@@ -19,6 +19,14 @@ let rules = [
         [`@babel/preset-react`]
       ]
     }
+  },
+  {
+    test: /\.ftl$/,
+    use: [
+      {
+        loader: `raw-loader`
+      }
+    ]
   }
 ];
 
