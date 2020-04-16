@@ -1,6 +1,7 @@
 import "intl-pluralrules";
 import { FluentBundle, FluentResource } from "@fluent/bundle";
 import { negotiateLanguages } from "@fluent/langneg";
+import { ReactLocalization } from "@fluent/react";
 import { getCurrentLanguage } from "./components/petition/locales";
 
 import deMessages from "../../network-api/locale/de/messages.ftl";
@@ -36,5 +37,5 @@ export function getBundles() {
     bundles.push(bundle);
   }
 
-  return bundles;
+  return new ReactLocalization(bundles);
 }

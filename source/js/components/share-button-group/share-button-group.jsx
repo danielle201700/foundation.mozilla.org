@@ -121,11 +121,13 @@ export default class ShareButtonGroup extends React.Component {
       copied: this.state.linkCopied
     });
     let link = (
-      <Localized id={this.state.linkCopied ? "link-copied" : "link-copy"}>
+      <Localized
+        id={this.state.linkCopied ? "link-copied" : "link-copy"}
+        attrs={{ title: true }}
+      >
         <button
           className={classes}
           onClick={event => this.handleLinkButtonClick(event)}
-          title={tooltip}
         >
           {label}
         </button>

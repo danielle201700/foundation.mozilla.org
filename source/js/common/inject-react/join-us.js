@@ -23,7 +23,7 @@ export default (apps, siteUrl, csrfToken) => {
     apps.push(
       new Promise(resolve => {
         ReactDOM.render(
-          <LocalizationProvider bundles={getBundles()}>
+          <LocalizationProvider l10n={getBundles()}>
             <JoinUs {...props} whenLoaded={() => resolve()} />
           </LocalizationProvider>,
           element

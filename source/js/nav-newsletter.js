@@ -137,7 +137,7 @@ class NavNewsletter {
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
     this.form = ReactDOM.render(
-      <LocalizationProvider bundles={getBundles()}>
+      <LocalizationProvider l10n={getBundles()}>
         <JoinUs {...props} />
       </LocalizationProvider>,
       elements.joinUs

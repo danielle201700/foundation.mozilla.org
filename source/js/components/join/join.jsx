@@ -283,12 +283,14 @@ export default class JoinUs extends React.Component {
         </Localized>
         <Localized
           id="cta-manage-subscriptions"
-          preferencesLink={
-            <a
-              href="https://www.mozilla.org/newsletter/recovery/"
-              target="_blank"
-            ></a>
-          }
+          elems={{
+            preferencesLink: (
+              <a
+                href="https://www.mozilla.org/newsletter/recovery/"
+                target="_blank"
+              ></a>
+            )
+          }}
         >
           <p>
             {`If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <preferencesLink>manage your subscriptions</preferencesLink> and update your email preferences.`}
@@ -496,9 +498,11 @@ export default class JoinUs extends React.Component {
               />
               <Localized
                 id="privacy-policy"
-                privacyLink={
-                  <a href="https://www.mozilla.org/privacy/websites/"></a>
-                }
+                elems={{
+                  privacyLink: (
+                    <a href="https://www.mozilla.org/privacy/websites/"></a>
+                  )
+                }}
               >
                 <p className="d-inline-block body-small form-text mb-0">
                   {`I’m okay with Mozilla handling my info as explained in <privacyLink>this Privacy Notice</privacyLink>`}

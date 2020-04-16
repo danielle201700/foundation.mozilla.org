@@ -99,8 +99,8 @@ close-button = Close
 not-creepy = Not creepy
 super-creepy = Super creepy
 percent = {$percent}%
-percent-likely-to-buy = {$percent}% likely to buy it
-percent-not-likely-to-buy = {$percent}% not likely to buy it
+percent-likely-to-buy = {$perc}% likely to buy it
+percent-not-likely-to-buy = {$perc}% not likely to buy it
 
 share-text = I think this {$product} is {$creepType}. What do you think? Check out the Creep-O-Meter over on {$twitterHandle}’s {$link} buyer’s guide.
 email = Email

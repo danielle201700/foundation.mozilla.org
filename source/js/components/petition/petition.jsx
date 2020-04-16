@@ -692,7 +692,7 @@ export default class Petition extends React.Component {
                     <small className="form-check form-control-feedback">
                       <Localized
                         id="comments-limit"
-                        $limit={SALESFORCE_COMMENT_LIMIT}
+                        vars={{ limit: SALESFORCE_COMMENT_LIMIT }}
                       >
                         {`Comments cannot be longer than {$limit} characters`}
                       </Localized>
@@ -713,9 +713,11 @@ export default class Petition extends React.Component {
                 />
                 <Localized
                   id="privacy-policy"
-                  privacyLink={
-                    <a href="https://www.mozilla.org/privacy/websites/"></a>
-                  }
+                  elems={{
+                    privacyLink: (
+                      <a href="https://www.mozilla.org/privacy/websites/"></a>
+                    )
+                  }}
                 >
                   <span className="body-small form-text">
                     {`I’m okay with Mozilla handling my info as explained in <privacyLink>this Privacy Notice</privacyLink>`}

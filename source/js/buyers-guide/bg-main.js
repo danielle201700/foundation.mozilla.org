@@ -158,7 +158,7 @@ let main = {
       apps.push(
         new Promise(resolve => {
           ReactDOM.render(
-            <LocalizationProvider bundles={getBundles()}>
+            <LocalizationProvider l10n={getBundles()}>
               <CreepVote
                 csrf={csrf.value}
                 productType={productType}
@@ -181,7 +181,7 @@ let main = {
       apps.push(
         new Promise(resolve => {
           ReactDOM.render(
-            <LocalizationProvider bundles={getBundles()}>
+            <LocalizationProvider l10n={getBundles()}>
               <Creepometer
                 initialValue={initialValue}
                 whenLoaded={() => resolve()}

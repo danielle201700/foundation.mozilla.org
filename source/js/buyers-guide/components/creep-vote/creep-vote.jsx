@@ -236,7 +236,7 @@ export default class CreepVote extends React.Component {
               <p className="h6-heading mb-0">
                 <Localized
                   id="vote-counter"
-                  $voteCount={Number(this.state.totalVotes)}
+                  vars={{ voteCount: Number(this.state.totalVotes) }}
                 >
                   {`{$voteCount} votes`}
                 </Localized>
@@ -293,7 +293,7 @@ export default class CreepVote extends React.Component {
             <h3 className="h2-heading mb-1">
               <Localized
                 id="voted-header"
-                $voteCount={this.state.totalVotes + 1}
+                vars={{ voteCount: this.state.totalVotes + 1 }}
               >
                 {`{$voteCount} Vote — invite your friends!`}
               </Localized>

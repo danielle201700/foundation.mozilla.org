@@ -70,7 +70,7 @@ export default class CreepChart extends React.Component {
                     <span className="creep-face" />
                   </th>
                   <td className="creepiness">
-                    <Localized id="percent" $percent={percent}>
+                    <Localized id="percent" vars={{ percent }}>
                       {`{$percent}%`}
                     </Localized>
                   </td>

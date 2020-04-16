@@ -97,8 +97,8 @@ close-button = Fermer
 not-creepy = Pas flippant
 super-creepy = Super flippant
 percent = {$percent} %
-percent-likely-to-buy = {$percent} % pourraient l’acheter
-percent-not-likely-to-buy = {$percent} % pensent ne pas l’acheter
+percent-likely-to-buy = {$perc} % pourraient l’acheter
+percent-not-likely-to-buy = {$perc} % pensent ne pas l’acheter
 
 share-text = Je pense que ce produit {$product} est {$creepType}. Qu’en pensez-vous ? Regardez le Creep-O-Meter du guide d’achat {$link} de {$twitterHandle}.
 email = Courriel

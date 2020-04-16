@@ -72,7 +72,7 @@ export default class PulseProjectList extends React.Component {
 
       if (project.related_creators.length) {
         byline = (
-          <Localized id="pulse-author" $authorList={authorList}>
+          <Localized id="pulse-author" vars={{ authorList }}>
             {`By {$authorList}`}
           </Localized>
         );
