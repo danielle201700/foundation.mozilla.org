@@ -86,7 +86,8 @@ voted-header = {$voteCount ->
 # Creep-o-meter vote
 tell-us = Tell us what you think
 how-creepy = How creepy do you think this is?
-how-likely = How likely are you to buy it?
+how-likely-buy = How likely are you to buy it?
+how-likely-use = How likely are you to use it?
 likely = Likely
 not-likely = Not likely
 vote-button = Vote & See Results
@@ -100,7 +101,9 @@ not-creepy = Not creepy
 super-creepy = Super creepy
 percent = {$percent}%
 percent-likely-to-buy = {$perc}% likely to buy it
+percent-likely-to-use = {$perc}% likely to use it
 percent-not-likely-to-buy = {$perc}% not likely to buy it
+percent-not-likely-to-use = {$perc}% not likely to use it
 
 share-text = I think this {$product} is {$creepType}. What do you think? Check out the Creep-O-Meter over on {$twitterHandle}’s {$link} buyer’s guide.
 email = Email

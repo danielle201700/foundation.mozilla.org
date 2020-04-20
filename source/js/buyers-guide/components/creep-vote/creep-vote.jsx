@@ -12,7 +12,7 @@ export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
-    this.buyOrUse = this.props.productType === "software" ? "use" : "buy";
+    this.isSoftware = this.props.productType === "software";
   }
 
   getInitialState() {
@@ -153,6 +153,16 @@ export default class CreepVote extends React.Component {
       selected: this.state.confidence == true
     });
 
+    let howLikely = (
+      <Localized id="how-likely-buy">{`How likely are you to buy it?`}</Localized>
+    );
+
+    if (this.isSoftware) {
+      howLikely = (
+        <Localized id="how-likely-use">{`How likely are you to use it?`}</Localized>
+      );
+    }
+
     return (
       <React.Fragment>
         <div className="what-you-think-label h5-heading">
@@ -177,9 +187,7 @@ export default class CreepVote extends React.Component {
             </div>
             <div className="col-12 col-md-6 mt-5 mt-md-0">
               <div className="mb-4 text-center">
-                <h3 className="h5-heading mb-2">
-                  <Localized id="how-likely" attrs={{ verb: this.buyOrUse }}>{`How likely are you to ${verb} it?`}</Localized>
-                </h3>
+                <h3 className="h5-heading mb-2">{howLikely}</h3>
               </div>
               <div className="text-center">
                 <div
@@ -311,7 +319,7 @@ export default class CreepVote extends React.Component {
               <div className="col likelyhood-chart d-flex justify-content-center">
                 <LikelyhoodChart
                   values={this.props.votes.confidence}
-                  buyOrUse={this.buyOrUse}
+                  isSoftware={this.isSoftware}
                 />
               </div>
             </div>
