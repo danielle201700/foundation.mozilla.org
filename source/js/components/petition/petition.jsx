@@ -715,7 +715,7 @@ export default class Petition extends React.Component {
                   id="privacy-policy"
                   elems={{
                     privacyLink: (
-                      <a href="https://www.mozilla.org/privacy/websites/"></a>
+                      <a href="https://www.mozilla.org/privacy/websites/">``</a>
                     )
                   }}
                 >

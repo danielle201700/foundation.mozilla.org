@@ -288,7 +288,9 @@ export default class JoinUs extends React.Component {
               <a
                 href="https://www.mozilla.org/newsletter/recovery/"
                 target="_blank"
-              ></a>
+              >
+                ``
+              </a>
             )
           }}
         >
@@ -500,7 +502,7 @@ export default class JoinUs extends React.Component {
                 id="privacy-policy"
                 elems={{
                   privacyLink: (
-                    <a href="https://www.mozilla.org/privacy/websites/"></a>
+                    <a href="https://www.mozilla.org/privacy/websites/">``</a>
                   )
                 }}
               >
