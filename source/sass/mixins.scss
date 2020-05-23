@@ -1,3 +1,40 @@
+@mixin active() {
+  &:active,
+  &.active {
+    @content;
+  }
+}
+
+@mixin disabled() {
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    @content;
+  }
+}
+
+// Break the constraints of parent container(s) to span the entire viewport width
+@mixin full-bleed {
+  width: 100vw;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Mixin to create ".full-bleed-breakpoint" utility classes
+@mixin full-bleed-bp($breakpoint) {
+  @include media-breakpoint-only($breakpoint) {
+    .full-bleed-#{$breakpoint} {
+      @include full-bleed;
+    }
+  }
+}
+
 @mixin heading(
   $font-family,
   $font-weight,
@@ -30,7 +67,7 @@
   }
 }
 
-@mixin body-text($font-family, $font-weight, $color, $dark-theme-color) {
+@mixin text-base-style($font-family, $font-weight, $color, $dark-theme-color) {
   font-family: $font-family;
   font-weight: $font-weight;
   color: $color;
@@ -67,6 +104,11 @@
   }
 }
 
+@mixin body-text-style() {
+  @include text-base-style(null, 400, $black, $white);
+  @include scaleText(18px, 27px);
+}
+
 @mixin dark-theme-inline-anchor($color: inherit) {
   color: $color;
   font-weight: inherit;
@@ -94,4 +136,95 @@
 
   margin-top: -$offset;
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
+}
+
+@mixin button-base-colors($styles) {
+  color: map-get($styles, "color");
+  background-color: map-get($styles, "background-color");
+  border-color: map-get($styles, "border-color");
+}
+
+@mixin button-colors-by-mode($mode-colors) {
+  $default-colors: map-get($mode-colors, "default");
+  $hover-colors: map-get($mode-colors, "hover-focus");
+  $active-colors: map-get($mode-colors, "active");
+
+  @include button-base-colors($default-colors);
+
+  @include hover-focus {
+    @include button-base-colors($hover-colors);
+  }
+
+  @include active {
+    @include button-base-colors($active-colors);
+  }
+
+  @include disabled {
+    @include button-base-colors($default-colors);
+  }
+
+  &:not(:disabled):not(.disabled) {
+    @include active {
+      @include button-base-colors($active-colors);
+    }
+  }
+}
+
+@mixin button-basic-style($regular-mode, $dark-mode) {
+  @include disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  @include button-colors-by-mode($regular-mode);
+
+  @at-root .dark-theme & {
+    @include button-colors-by-mode($dark-mode);
+    @include disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+@mixin btn-secondary-style() {
+  border-width: 2px;
+  border-style: solid;
+
+  $regular-mode: (
+    "default": (
+      "color": $black,
+      "background-color": transparent,
+      "border-color": $black
+    ),
+    "hover-focus": (
+      "color": $white,
+      "background-color": $black,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $white,
+      "background-color": $blue,
+      "border-color": transparent
+    )
+  );
+
+  $dark-mode: (
+    "default": (
+      "color": $white,
+      "background-color": transparent,
+      "border-color": $white
+    ),
+    "hover-focus": (
+      "color": $black,
+      "background-color": $white,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $black,
+      "background-color": $blue,
+      "border-color": transparent
+    )
+  );
+
+  @include button-basic-style($regular-mode, $dark-mode);
 }

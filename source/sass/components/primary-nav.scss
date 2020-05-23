@@ -35,7 +35,6 @@
 
     &:hover {
       color: $dark-blue;
-      cursor: pointer;
     }
   }
 
@@ -62,7 +61,6 @@
 
       border-bottom: 6px solid transparent;
       color: $black;
-      font-family: "Nunito Sans";
       font-weight: 700;
       margin-right: 18px;
       transition: border-color 0.25s ease;
@@ -98,6 +96,8 @@
   }
 
   .wrapper-burger {
+    $full-logo-breakpoint: $bp-sm;
+
     transition: background 200ms ease-in-out;
     background: $white;
     border-bottom: 1px solid $gray-20;
@@ -115,7 +115,6 @@
     }
 
     .burger {
-      cursor: pointer;
       margin-right: 24px;
       margin-left: -52px;
       border: 0;
@@ -196,7 +195,7 @@
       position: relative;
       z-index: 1;
 
-      @media (min-width: $bp-sm) {
+      @media (min-width: $full-logo-breakpoint) {
         width: 97px;
         background: url(../_images/mozilla-on-black.svg) no-repeat;
       }
@@ -210,7 +209,7 @@
       position: absolute;
       padding-top: 64px;
 
-      @media (min-width: $bp-sm) {
+      @media (min-width: $full-logo-breakpoint) {
         padding-top: 72px;
       }
 

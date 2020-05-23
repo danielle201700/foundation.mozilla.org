@@ -32,7 +32,6 @@
       <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
     {% endblock %}
 
     {% block extended_head %}{% endblock %}
@@ -60,7 +59,7 @@
 
     {% block body_wrapped %}
     <div class="wrapper">
-      <div class="sticky-top">
+      <div class="sticky-top d-print-none">
         {% block primary_nav %}
           {% include "partials/primary_nav.html" with background="simple-background" %}
         {% endblock %}
